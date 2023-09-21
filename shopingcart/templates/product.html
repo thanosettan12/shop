@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+        {{ product.disc|truncatewords:150}}
+
+
+
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ product.name }}-Random Shop
+
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_product_row_class">
+    <div class="mx_auto">
+        <p><a href="{% url 'shopingcart_app:allprodcat' %}"Home></a>|<a href="{{product.category.geturl}}">{{product.category}}</a>|{{product.name}}</p>
+    </div>
+</div>
+<div class="card">
+      <div class="card__title">
+        <div class="icon">
+<br>
+<div class="row">
+    <div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6  text-center">
+        <div class="product__photo" >
+		<div class="photo-container">
+			<div class="photo-main">
+
+				<img src="{{product.img.url}}" alt="{{product.name}}">
+			</div>
+
+		</div>
+	</div>
+    </div>
+    </div>
+    <div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <h1 class="my_product_title">{{product.name}}</h1>
+            <p style="font-size:32px;"><b>₹{{product.price}}</b></p>
+            <p class="text-justify my_prod_disc " style="font-size:22px;">{{product.disc}}</p>
+            {% if product.stock <= 0  %}
+            <p class="text-justify my_prod_disc " style="font-size:18px; color:#fff5f5;"> <b> Out of Stock</b></p>
+            {% else %}
+            <div>
+            <a href="{% url 'cart_app:add_cart' product.id %} "><button class="buy--btn">ADD TO CART</button></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+            </div>
+      </div>
+</div>
+{% endblock %}

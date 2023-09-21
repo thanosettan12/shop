@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+WE have Random Products
+
+{% endblock %}
+{% block title %}
+    Search
+{% endblock %}
+{% block content %}
+<div>
+    <p class="text-center search_text">you have searched for:<b>"{{query}}"</b></p>
+</div>
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3">
+            <div class="card">
+                <figure>
+
+                     <a href="{{product.get_url}}"><img  class="pho_to" src="{{product.img.url}}" alt="---"></a>
+                </figure>
+                <section class="details">
+
+                    <a href="{{product.geturl}}"></a>
+                    <div class="min-details">
+                        <h1>{{product.name}}</h1>
+                        <h1 class="price">₹{{product.price}}</h1>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+
+    {% empty %}
+<div class="row mx-auto">
+    <p class="text-center"> 0 result found</p>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

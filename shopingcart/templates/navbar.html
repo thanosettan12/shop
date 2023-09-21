@@ -1,0 +1,69 @@
+<div class="container">
+<nav id="primary_nav_wrap">
+    <ul>
+        <li class="current-menu-item"><a href="{% url 'shopingcart_app:allprodcat' %}">Home</a></li>
+        <li><a href="#">Updates</a></li>
+        <li class="{% if 'shopingcart_app' in request.path %} active {% endif %}"><a href="{% url 'shopingcart_app:allprodcat' %}">All products</a>
+            <ul>
+                {% for cat in links %}
+                <li><a href="{{cat.geturl}}">{{cat.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><a href="#">About</a>
+
+        </li>
+        {% if item_count > 0 %}
+        <li><a href="{% url 'cart_app:cart_detail'%}"><i class="fa-solid fa-cart-plus" style="color: #d6d6d6; width:1.5em;"></i>
+            ({{item_count}})</a>
+        </li>
+        {% endif %}
+<!--         search bar -->
+        <li>
+
+            <form action="{% url 'search_app:search_result' %}"  method="get">
+            <div class="wrap">
+
+              <div class="search" >
+
+                  <input type="text" class="searchTerm" placeholder="type here..." name="q">
+
+                  <button type="submit" class="searchButton">
+                     <i class="fa fa-search"></i>
+                 </button>
+             </div>
+           </div>
+            </form>
+
+        </li>
+    </ul>
+</nav>
+<br><br><br><br>
+<table>
+    <tr>
+
+    </tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+<!--<nav>-->
+<!--  <ul>-->
+<!--    <li><a href="{% url 'shopingcart_app:allprodcat' %}">All products</a></li>-->
+<!--    {% for cat in links %}-->
+
+<!--    <li><a href="{{cat.geturl}}">{{cat.name}}</a></li>-->
+<!--    {% endfor %}-->
+<!--  </ul>-->
+<!--</nav>-->
+
+
+
+

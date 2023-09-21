@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+cart page
+
+{% endblock %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 justify-content">
+                <div class="my_cart_card">
+                        {% if not cart_items %}
+                        <div>
+                            <div class="text-center">
+                               <br>
+                               <h1 class="text-center my_title">
+                                Your Cart is empty
+                               </h1>
+                               <br>
+                                <p class="text-center"> Click <a href="{% url 'shopingcart_app:allprodcat' %}">here</a>to return to home page </p>
+
+                            </div>
+                        </div>
+                            {% else %}
+                            <div class="row">
+                            <div class="col-md-8">
+                            <table class="table my_custom_table">
+                            <thead class="my_custom_thead">
+                            <tr>
+                                <th class="text-center" style="position:relative;left:250px;top:0px;font-size:20px;">
+                                        cart
+
+                                </th>
+
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            {% for cart_item in cart_items %}
+                            <tr>
+                                <td class="text-left col-md-2 col-lg-2 col-xl-2">
+
+
+                                    <a href="{{cart_item.product.get_absolute_url}}"><img src="{{cart_item.product.img.url}}" alt="***" style="width: 8rem; height:100px; border-radius:5px;"></a>
+
+
+
+<!--                                    <a href="cart_item.product.get_absolute_url"><img src="{{cart_item.product.img.url}}" alt="***"></a>-->
+
+                                </td>
+                                <td class="text-left col-md-2 col-lg-2 col-xl-2">
+                                    {{cart_item.product.name}}
+                                    <br>
+                                     Price: ₹{{cart_item.product.price}}
+                                    <br>
+                                    Qty: {{cart_item.quantity}}*{{cart_item}}
+
+                                 </td>
+                                <td class="text-left col-md-2 col-lg-2 col-xl-2">
+                                ₹ {{cart_item.sub_total}}
+                                </td>
+                                {% if cart_item.quantity < cart_item.product.stock %}
+                                <td>
+                                    <a href="{% url 'cart_app:add_cart' cart_item.product.id %}" class="custom_a"> <i class="fa-solid fa-plus"></i></a>&nbsp;
+                                    <a href="{% url 'cart_app:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fa-solid fa-minus"></i></a>
+                                    &nbsp;<a href="{% url 'cart_app:ful_remove' cart_item.product.id %}" class="custom_icon"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                                {% else %}
+                                <td>
+
+                                <a href="{% url 'cart_app:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fa-solid fa-minus"></i></a>
+                                &nbsp;<a href="{% url  'cart_app:ful_remove' cart_item.product.id %}" class="custom_icon"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                                {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+
+
+                            </div>
+                            </div>
+
+
+      </div>
+      </div>
+        <div class="col-md-6 justify-content">
+    <table class="my_cart_checkout">
+        <thead>
+        <tr>
+            <th style="font-size:26px;position:absolute;top:50px;left:250px; text-transform:uppercase;">
+                Checkout
+
+            </th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr>
+            <td style="align-text: center; justify-item:center;">
+
+                <br>
+                <p style="padding-left:20px;font-size:15px;position:absolute; top:100px;text-transform:uppercase;">please review your cart items before proceedeing to payment.</p>
+                <p style="padding-left:20px;font-size:15px;position:absolute; top:150px;text-transform:uppercase;">your total amount :₹{{total}}</p>
+                <div style="color:#0a0a0a;">
+                    |<br>
+                    |<br>
+                    |<br>
+                    |<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>
+                    |<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>
+                    <div>
+        <a href="{% url 'shopingcart_app:allprodcat' %}" class="btn btn-block" style="background-color:#b0aeae; color:#000000;font_style:bold;">proceed to pay</a>
+    </div>
+
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endif %}
+
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.disc|truncatewords:150}}
+    {% else %}
+        Welcome to Random Shop
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }}-Random Shop
+    {% else %}
+        see our random products
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+        <div>
+            <div class="row my_row_class" >
+                <div class="mx_auto">
+                <a href="{% url 'shopingcart_app:allprodcat' %}">Link to All Products by Category</a>
+            </div>
+                </div>
+        </div>
+        {% endif %}
+
+<div class="cat_img">
+    <div class="mx_auto">
+        {% if category %}
+        <div class="cat_image_container">
+            <img class="cat_image" src="{{category.img.url}}" alt="{{category.name}}" style="border-radius: 15px; height: 60vh;position: relative; top:-4em;">
+            <div class="overlay_text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);font-family: fantasy; text-align: center; color: CFC2AC; padding: 0px; font-size:95px;text-transform:uppercase; text-weight:800;">
+                {{ category.name }}
+            </div>
+        </div>
+    </div>
+</div>
+    <br>
+<div>
+    <h1 class="text-center my_title">
+        {{ category.name }}
+    </h1>
+    <p class="text-justify">
+        {{ category.disc}}
+    </p>
+</div>
+    {% else %}
+<div>
+<!--    <img class="cat_image cat_image_padding " src="{% static 'img/banner.jpg' %}" alt="banner" width="2000px" height="600px">-->
+</div>
+                <div class="image-container">
+                    <div class="banner-text">
+
+							<h1 class="overlay-text">RANDOM SHOP</h1>
+
+                    </div>
+                </div>
+<br>
+<div>
+    <h1 class="text-center my_title">Our Products</h1>
+    <p class="text-justify" >When using Lorem Ipsum for creating dummy content for your newly created website, you can select the text formats you want from the tool. Like, words, sentences, or paragraphs. , you can select whether you want HTML markup in your dummy content or not Then, you can choose the number of words and paragraphs for your dummy content and execute the plan accordingly. You can use this tool at incrementors.com for free.</p>
+</div>
+    {% endif %}
+<!--<div class="container">-->
+<!--    <div>-->
+<!--        {% for product in products  %}-->
+<!--        <div>-->
+<!--            <div>-->
+<!--                <div>-->
+<!--                <a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.img.url}}" alt="{{product.name}}"  width="200px" height="200px"></a>-->
+<!--            <div>-->
+<!--                <h4>{{product.name}}</h4>-->
+<!--                <h6>{{product.price}}</h6>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
+<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<div class="container">
+    <div class="row">
+        {% for product in products.object_list %}
+        <div class="col-md-3">
+            <div class="card">
+                <figure>
+
+                     <a href="{{product.get_url}}"><img  class="pho_to" src="{{product.img.url}}" style="height: 63vh;" alt="---"></a>
+                </figure>
+                <section class="details">
+
+                    <a href="{{product.geturl}}"></a>
+                    <div class="min-details">
+                        <h1>{{ product.name }}</h1>
+                        <h1 class="price">₹{{ product.price }}</h1>
+                    </div>
+                </section>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+        <hr>
+
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light {% if product.number == pg %} active {% endif %}">{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+</div>
+
+{% endblock %}
